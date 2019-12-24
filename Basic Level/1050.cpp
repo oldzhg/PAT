@@ -28,29 +28,39 @@ int main() {
         a.push_back(temp);
     }
     sort(a.begin(), a.end());
-    reverse(a.begin(), a.end());
+//    reverse(a.begin(), a.end());
 
-    int w[m][n];
-    memset(w, 0, sizeof(w));
+    int result[m][n];
+    memset(result, 0, sizeof(result));
 
-    int x = 0, y = 0, p = 0;
-    w[x][y] = a[p++];
+    unsigned long cnt = a.size();
 
 
-    while (p < N) {
-        while (y + 1 < n && !w[x][y + 1]) {
-            w[x][++y] = a[p];
-            p++;
-        }
+    int x = 0, y = 0, x_min = 0, y_min = 0, x_max = m - 1, y_max = n - 1;   //x和y为当前的位置。_min和_max为边缘
+    int flag = 3;   //方向标志。1->向左，2->向下，3->向右，4->向上
+    while (cnt--) {
+        result[x][y] = a[cnt];   //添加到容器内
+        if ((flag == 3 && y == y_max) || (flag == 3 && result[x][y + 1]))    //右上角
+            flag = 2;   //向下
+        else if ((flag == 2 && x == x_max) || (flag == 2 && result[x + 1][y])) //右下角
+            flag = 1;   //向左
+        else if ((flag == 1 && y == y_min) || (flag == 1 && result[x][y - 1])) //左下角
+            flag = 4;   //向上
+        else if ((flag == 4 && x == x_min) || (flag == 4 && result[x - 1][y])) //左上角
+            flag = 3;   //向右
+        if (flag == 1) y--;
+        if (flag == 2) x++;
+        if (flag == 3) y++;
+        if (flag == 4) x--;    //这四行代码用来改变坐标(x,y)
     }
 
 
     for (int l = 0; l < m; ++l) {
         for (int i = 0; i < n; ++i) {
-            printf("%d", w[l][i]);
-            if (i != m - 1) printf(" ");
+            printf("%d", result[l][i]);
+            if (i != n - 1) printf(" ");
         }
-        printf("\n");
+        if (l != m - 1) printf("\n");
     }
 
     return 0;

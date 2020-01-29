@@ -26,7 +26,7 @@ int main() {
     for (int k = 0; k < M; ++k) {
         if (!isExist[guest[k]]) s.insert(guest[k]);
     }
-    printf("%d\n", static_cast<int>(s.size()));
+    printf("%d\n", s.size());
     for (auto it = s.begin(); it != s.end(); it++) {
         if (it != s.begin()) printf(" ");
         printf("%05d", *it);

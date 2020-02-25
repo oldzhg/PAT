@@ -7,9 +7,6 @@ using namespace std;
 
 int main()
 {
-    string str1, str2;
-    str1 = "1323";
-    str2 = "3";
-    cout << str1.find(str2);
+    printf("%d", 3 << 1); // 移位运算符 0011 -> 0110
     return 0;
 }
